@@ -38,3 +38,6 @@ async def makecalc(input: Input):
         prediction = predictor.predict(sent)
         pred_dict["sent{}".format(i)] = {"text": sent, "pred": prediction}
     return pred_dict
+
+
+# run with: uvicorn main:app --reload
