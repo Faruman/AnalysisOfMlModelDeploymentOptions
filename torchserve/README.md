@@ -1,6 +1,6 @@
 # Deploy model with TorchServe
 
-To use TorchServe at first a Model Archive of the model we want to deploy needs to be created. This is done by the following command:
+To use TorchServe at a Model Archive of the model we want to deploy needs to be created. Therefore, the model needs to be downloded first ([https://drive.google.com/drive/folders/1uSxkdLpRXLzXDboG_n9JlRFgH9Ogoa9D?usp=sharing](GDrive)) and than the following command needs to be run:
 
 ```
 torch-model-archiver --model-name "bert_trimsweep" --version 1.0 --serialized-file ./pytorch_model.bin --extra-files "./config.json" --handler "./handler.py"
