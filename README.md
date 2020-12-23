@@ -11,11 +11,11 @@ While often a lot of thought is put into the frameworks and methods which are us
 
 The model which will be deployed via the different frameworks, was build by myself for LexiTech, a start up I am engaged with which tries to help restaurants to better understand customer feedback. The model does hereby not only analyse the sentiment of a review but is also able to predict which facet of the restaurant (e.g.: food, price, ambience, ...) was evaluated. The architecture of the model is based on the one proposed by Chi Sun et al. in their paper “Utilizing BERT for Aspect-Based Sentiment Analysis via Constructing Auxiliary Sentence” and was implemented with PyTorch (Sun, Huang, & Qiu, 2019). Combined with a dataset of 4.3 million annotated german reviews, different models with slightly altered architectures were created and assessed to find the optimal parameter combination. A plot of this evaluation can be seen below:
 
-picture
+![Picture: Parameter Sweep](https://github.com/Faruman/CompIndividualAnalysisPaper/blob/master/imgs/ParameterSweep.png?raw=true)
 
 Hereby the best performance was delivered by a rather large model (416 MB), based on the BERT architecture (Devlin, Chang, Lee, & Toutanova, 2019). Due to its size and complexity, the model seems to be a good fit to try out and evaluate different deployment techniques for machine learning models. As for most natural language processing applications, extensive pre-processing is required for the model to work. Thus, leading to the processing flow shown below:
 
-picture
+![Picture: Processing Flow](https://github.com/Faruman/CompIndividualAnalysisPaper/blob/master/imgs/ProcessingFlow.png?raw=true)
 
 As can be seen not only tokenization needs to be applied to our text before applying the model, but different auxiliary sentences need to generate. This additional layer of complexity for the deployment of the example model, should be helpful for evaluating the flexibility of the different deployment frameworks.
 
@@ -126,7 +126,7 @@ While improving on most of the limitations of Flask, creating APIs for additiona
 
 TorchServe is the result of a collaboration between Facebook and AWS and aims to provide a clean, well-supported, and industrial-grade path for deploying PyTorch models for inference at scale. As the library is part of the PyTorch open-source project, it is available for free (Spisak, Bindal, Chung, & Stefaniak, 2020). As the package is developed by Facebook, the framework is the officially supported way to deploy PyTorch models. Hereby the library does not only provide the system for generating the prediction, but also allows to serve multiple models simultaneously, version production models for A/B testing, load and unload models dynamically, and monitor detailed logs and metrics. Its structure can be seen in the graphic below:
 
-Picture
+![Picture: TorchServe Overview](https://github.com/Faruman/CompIndividualAnalysisPaper/blob/master/imgs/TorchServeOverview.gif?raw=true)
 
 As the example model does not use one of the custom handlers provided by PyTorch the first thing which needs to be done, is to create a custom handler. This handler implements different methods to initialize the model, preprocess the data, do the inference, and postprocess the prediction ([handler](https://github.com/Faruman/CompIndividualAnalysisPaper/blob/master/torchserve/handler.py)). Afterwards, a model archive (.mar file) can be created containing the model weights as well as the previously defined handler. Next, the model archive is deployed to the server and the Inference API can be used to make predictions. Furthermore, extensive logs are created, showing not only the amount of memory and cpu power consumed by the server, but also the time needed for each inference. Such a log entry can be seen below:
 
