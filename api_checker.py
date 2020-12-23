@@ -2,13 +2,17 @@ import requests
 import json
 import time
 
-# check flask api
+#check flask api
+api_url = "api/"
+port = "5000"
+
+#check fastapi api
 # api_url = "api/"
-# port = 5000
+# port = "8000"
 
 #check torchServe api
-api_url = "predictions/bert_trimsweep"
-port = "8080"
+# api_url = "predictions/bert_trimsweep"
+# port = "8080"
 
 url = 'http://127.0.0.1:' + port + '/' + api_url
 
